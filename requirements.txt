@@ -10,5 +10,3 @@ huggingface_hub
 openai
 ffmpeg-python
 opencv-python
-requests
-json
