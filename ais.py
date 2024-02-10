@@ -170,7 +170,7 @@ def capture_frame(stream_url, images_dir='images'):
 
 def send_email(recipient, subject, body, attachment=None):
     data = {
-        "from": "Kris - AllAboutAI <kris@allabtai.com>",
+        "from": "YOU <yourmail@mail.com>",
         "to": recipient,
         "subject": subject,
         "text": body,
@@ -198,9 +198,9 @@ def send_email(recipient, subject, body, attachment=None):
     print("Email sent successfully.")
     
 def main():
-    stream_url = 'http://192.168.1.65:8080/video'
-    images_dir = "C:/Users/kris_/Python/vstream/moondream/images"
-    video_dir = "C:/Users/kris_/Python/vstream/captured_video"
+    stream_url = 'IP WEBCAM URL'
+    images_dir = "YOURFOLDER/images"
+    video_dir = "YOURFOLDER/captured_video"
 
     # Initialize a boolean variable
     person_detected = False
@@ -208,7 +208,7 @@ def main():
     while True:
         capture_frame(stream_url, images_dir=images_dir)
         text_model, image_embeds = process_image(images_dir)
-        prompt = f"{NEON_GREEN}Is there WATER BOILING in the image?(big bubbles and steam){RESET_COLOR} (ONLY ANSWER WITH YES OR NO)"
+        prompt = f"{NEON_GREEN}Is there X in the image?{RESET_COLOR} (ONLY ANSWER WITH YES OR NO)"
 
         print(">", prompt)
         
@@ -229,12 +229,12 @@ def main():
             video_path = start_video_capture(stream_url, output_dir=video_dir, capture_duration=5)
                     # Send an email with the video clip as an attachment
             print("Sending email...")
-            recipient = "kris_fagerlie@hotmail.com"
+            recipient = "YOUR MAIL ADDRESS"
             subject = "Video Clip"
             body = "Here is the 5-second video clip."
             send_email(recipient, subject, body, attachment=video_path)
             text_model, image_embeds = process_image(images_dir)
-            prompt2 = "Describe the image in detail, check for boiling water:"
+            prompt2 = "Describe the image in detail:"
             answer2 = text_model.answer_question(image_embeds, prompt2)
             log = f"Image Describtion: {answer2} \n From the describtion write a security log:"
             log2 = mistral7b(log)
