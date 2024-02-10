@@ -3,7 +3,7 @@ AI Surveillance System
 
 1. git clone https://github.com/All-About-AI-YouTube/ai-surveillance.git
 2. go to dir
-3. pip install -e requirements.txt
+3. pip install -r requirements.txt
 4. OPTIONAL - Set your mailgun api key in mgapikey.txt
 5. Start a Local LM if you want security log (LM Studio / llama.cpp etc)
 6. Line 173 Set you mail
