@@ -9,6 +9,4 @@ gradio==4.15.0
 huggingface_hub
 openai
 ffmpeg-python
-moviepy
 opencv-python
-faster_whisper
