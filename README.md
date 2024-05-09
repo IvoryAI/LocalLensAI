@@ -2,7 +2,7 @@ This is now forked and I will have to update this as I add in new changes
 # ai-surveillance
 AI Surveillance System
 
-1. git clone https://github.com/All-About-AI-YouTube/ai-surveillance.git
+1. git clone
 2. go to dir
 3. pip install -r requirements.txt
 4. OPTIONAL - Set your mailgun api key in mgapikey.txt
