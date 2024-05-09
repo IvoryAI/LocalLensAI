@@ -35,7 +35,7 @@ def mistral7b(user_input):
     streamed_completion = client.chat.completions.create(
         model="local-model",
         messages=[
-            {"role": "system", "content": "You expert at writing security logs"},
+            {"role": "system", "content": "You are a expert at writing security logs"},
             {"role": "user", "content": user_input}
         ],
         stream=True  # Enable streaming
@@ -168,39 +168,39 @@ def capture_frame(stream_url, images_dir='images'):
 
     cap.release()
 
-def send_email(recipient, subject, body, attachment=None):
-    data = {
-        "from": "YOU <yourmail@mail.com>",
-        "to": recipient,
-        "subject": subject,
-        "text": body,
-    }
+# def send_email(recipient, subject, body, attachment=None):
+#     data = {
+#         "from": "YOU <yourmail@mail.com>",
+#         "to": recipient,
+#         "subject": subject,
+#         "text": body,
+#     }
 
-    if attachment:
-        with open(attachment, 'rb') as f:
-            files = {'attachment': (os.path.basename(attachment), f)}
-            response = requests.post(
-                "https://api.eu.mailgun.net/v3/allabtai.com/messages",
-                auth=("api", mailgun_api_key),
-                data=data,
-                files=files
-            )
-    else:
-        response = requests.post(
-            "https://api.eu.mailgun.net/v3/allabtai.com/messages",
-            auth=("api", mailgun_api_key),
-            data=data
-        )
+#     if attachment:
+#         with open(attachment, 'rb') as f:
+#             files = {'attachment': (os.path.basename(attachment), f)}
+#             response = requests.post(
+#                 "https://api.eu.mailgun.net/v3/allabtai.com/messages",
+#                 auth=("api", mailgun_api_key),
+#                 data=data,
+#                 files=files
+#             )
+#     else:
+#         response = requests.post(
+#             "https://api.eu.mailgun.net/v3/allabtai.com/messages",
+#             auth=("api", mailgun_api_key),
+#             data=data
+#         )
 
-    if response.status_code != 200:
-        raise Exception("Failed to send email: " + str(response.text))
+#     if response.status_code != 200:
+#         raise Exception("Failed to send email: " + str(response.text))
 
-    print("Email sent successfully.")
+#     print("Email sent successfully.")
     
 def main():
-    stream_url = 'IP WEBCAM URL'
-    images_dir = "YOURFOLDER/images"
-    video_dir = "YOURFOLDER/captured_video"
+    stream_url = ''
+    images_dir = "C:/Users/jason/AI Projects/vstream/Moondream/images"
+    video_dir = "C:/Users/jason/AI Projects/vstream/captured_video"
 
     # Initialize a boolean variable
     person_detected = False
@@ -208,7 +208,7 @@ def main():
     while True:
         capture_frame(stream_url, images_dir=images_dir)
         text_model, image_embeds = process_image(images_dir)
-        prompt = f"{NEON_GREEN}Is there X in the image?{RESET_COLOR} (ONLY ANSWER WITH YES OR NO)"
+        prompt = f"{NEON_GREEN}Is there a PERSON in the image?{RESET_COLOR} (ONLY ANSWER WITH YES OR NO)"
 
         print(">", prompt)
         
@@ -228,15 +228,15 @@ def main():
             print(f"{NEON_GREEN}Person detected. Starting video capture.{RESET_COLOR}")
             video_path = start_video_capture(stream_url, output_dir=video_dir, capture_duration=5)
                     # Send an email with the video clip as an attachment
-            print("Sending email...")
-            recipient = "YOUR MAIL ADDRESS"
-            subject = "Video Clip"
-            body = "Here is the 5-second video clip."
-            send_email(recipient, subject, body, attachment=video_path)
+            # print("Sending email...")
+            # recipient = "YOUR MAIL ADDRESS"
+            # subject = "Video Clip"
+            # body = "Here is the 5-second video clip."
+            # send_email(recipient, subject, body, attachment=video_path)
             text_model, image_embeds = process_image(images_dir)
             prompt2 = "Describe the image in detail:"
             answer2 = text_model.answer_question(image_embeds, prompt2)
-            log = f"Image Describtion: {answer2} \n From the describtion write a security log:"
+            log = f"Image Description: {answer2} \n From the description write a security log:"
             log2 = mistral7b(log)
             save_file("Security_log.txt", log2)
             # You might want to break or continue here depending on your application

@@ -1,3 +1,4 @@
+This is now forked and I will have to update this as I add in new changes
 # ai-surveillance
 AI Surveillance System
 
@@ -6,7 +7,7 @@ AI Surveillance System
 3. pip install -r requirements.txt
 4. OPTIONAL - Set your mailgun api key in mgapikey.txt
 5. Start a Local LM if you want security log (LM Studio / llama.cpp etc)
-6. Line 173 Set you mail
+6. Line 173 Set your mail
 7. Line 201 Set IP Webcam URL
 8. Line 202 Set Image Dir
 9. Line 203 Set Video Dir
